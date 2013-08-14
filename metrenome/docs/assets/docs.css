@@ -1,0 +1,218 @@
+/*
+        Page
+==================================================================================================*/
+
+body {
+  padding: 0 20px 50px;
+  font: 16px/1.5 'Open Sans', Helvetica, Arial, sans-serif;
+  background: #fff url(./bg.png);
+}
+
+
+
+
+
+/*
+        Base
+==================================================================================================*/
+
+a {
+  color: #0559A5;
+  transition: 0.12s;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #c00;
+}
+
+p {
+  margin-bottom: 15px;
+}
+
+li {
+  line-height: 1.5;
+}
+
+mark {
+  background: #F8DF07;
+}
+
+select,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"] {
+  margin: 0;
+}
+
+
+
+
+
+/*
+        Page header
+==================================================================================================*/
+
+.page-header {
+  margin: 0 -20px 0;
+  padding: 75px 0;
+
+  text-align: center;
+  color: #eee;
+  text-shadow: 0 1px 3px #000;
+
+  background: #222 url(header-bg.jpg) 50% 80% no-repeat;
+  background-size: cover;
+
+  border-bottom: 0;
+}
+
+.product-title {
+  font-size: 116px;
+  line-height: 1;
+  font-weight: 800;
+  color: #fff;
+}
+
+.product-subtitle {
+  display: block;
+  margin-top: 20px;
+
+  font-size: 48px;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.document-title {
+  margin-top: 75px;
+  font-size: 36px;
+  line-height: 1;
+}
+
+
+
+
+/*
+        Product info
+==================================================================================================*/
+
+.product-info {
+  margin: 0 -20px 0;
+  padding: 30px 0;
+
+  text-shadow: 0 1px 0 #fff;
+  background: #DEE3EB;
+  border-bottom: 1px solid #bcc;
+}
+
+.product-attributes {
+  margin-bottom: 30px;
+  font-size: 32px;
+  line-height: 1;
+  color: #000;
+}
+
+.product-attributes > div:nth-child(2) {
+  text-align: center;
+}
+
+.product-attributes > div:nth-child(3) {
+  text-align: right;
+}
+
+.gratitude {
+  margin: 0;
+  text-align: center;
+  font-size: 18px;
+  line-height: 1;
+}
+
+
+
+
+
+/*
+        Sections
+==================================================================================================*/
+
+.section {
+  margin-top: 60px;
+}
+
+.section-heading {
+  margin: 0 0 20px;
+  padding-bottom: 8px;
+
+  font-size: 32px;
+  line-height: 1;
+
+  border-bottom: 1px solid #ccc;
+}
+
+.section-subheading {
+  margin: 25px 0 0;
+  font-size: 18px;
+}
+
+
+
+
+
+/*
+        Figures
+==================================================================================================*/
+
+.figure {
+  margin: 30px 0;
+}
+
+.figure-caption {
+  margin-top: -20px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-style: italic;
+}
+
+
+
+
+
+/*
+        Code
+==================================================================================================*/
+
+pre {
+  background: #f9f9fa;
+}
+
+.code-html .comment {
+  color: #999;
+}
+
+.code-html .tag {
+  color: #6b6b6b;
+}
+
+.code-html .tag .title {
+  color: #0B59B9;
+}
+
+.code-html .attribute {
+  color: #4D6882;
+}
+
+.code-html .value {
+  color: #d14;
+}

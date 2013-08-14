@@ -1,0 +1,1 @@
+<?php{"password":"","config_path":"..\/config.json","list_path":"..\/subscription_list.txt"}?>

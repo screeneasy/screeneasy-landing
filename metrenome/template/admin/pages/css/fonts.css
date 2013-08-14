@@ -1,0 +1,39 @@
+/* Made with fontello.com */
+
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'icon-font';
+    src: url('../fonts/icon-font.eot?62389883');
+    src: url('../fonts/icon-font.eot?62389883#iefix') format('embedded-opentype'),
+         url('../fonts/icon-font.svg?62389883') format('svg'),
+         url('../fonts/icon-font.woff?62389883') format('woff'),
+         url('../fonts/icon-font.ttf?62389883') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"] {
+    display: inline-block;
+}
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+    font-family: "icon-font";
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+
+    display: block;
+    text-decoration: inherit;
+    text-align: center;
+    cursor: normal;
+
+    /* For safety - reset parent styles, that can break glyph codes*/
+    font-variant: normal;
+    text-transform: none;
+}
+
+.icon-users:before { content: '\1f525'; }
+.icon-pencil:before { content: '\1f524'; }
+.icon-tools:before { content: '\1f526'; }
+.icon-email:before { content: '\1f527'; font-size: 0.75em;}

@@ -1,0 +1,2 @@
+It is allowed to use admin panel ONLY with the template it comes with.
+It is not allowed to change, sell or redistribute admin panel.

@@ -1,0 +1,11 @@
+[
+    "login",
+    "log-out",
+    "main",
+    "admin-settings",
+    "email-settings",
+    "template-settings",
+    "email-sending",
+    "clear-list",
+    "subscribe"
+]
