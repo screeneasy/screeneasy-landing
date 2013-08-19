@@ -31,7 +31,7 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.post('/subscribe', function(req,res) {
-   var email = req.params.email
+   var email = req.body.email;
    var response = {};
    if (email === "") {
       response = {"status": "error", "error": "empty_email"};
@@ -50,17 +50,29 @@ app.post('/subscribe', function(req,res) {
    }
    else {
       // write the file
-      response = {"status": "success"};
-      res.send(JSON.stringify(response));
+      subscribeEmail(email, function(err){
+         if (!err) {
+            res.send(JSON.stringify({"status": "success"}));
+         }
+         else {
+            res.send(JSON.stringify({"error": "list_unwritable", "status": "error"}));
+         }
+      });
    }
 })
 
 function validEmail(email) {
-   return true;
+   return /[A-Za-z0-9]+@[A-Za-z0-9]+\.[a-zA-Z0-9]+/.test(email);
+}
+
+function subscribeEmail(email, callback) {
+   fs.appendFile('public/subscribelist', email + '\n', callback)
 }
 
 function isSubscribed(email) {
-   return false;
+   var emails = fs.readFileSync('public/subscribelist');
+   var emails = emails.toString().split("\n");
+   return emails.indexOf(email) > -1;
 }
 
 http.createServer(app).listen(app.get('port'), function(){
