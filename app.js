@@ -29,6 +29,13 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
+app.get('/readlist',express.basicAuth('team', 'thekingisdead'),function(req,res) {
+   fs.readFile('public/subscribelist',function(err,data) {
+      res.setHeader('Content-Type', 'text/plain');
+      res.send(data);
+      res.end()
+   })
+})
 app.get('/users', user.list);
 app.post('/subscribe', function(req,res) {
    var email = req.body.email;
