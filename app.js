@@ -57,7 +57,7 @@ app.post('/subscribe', function(req,res) {
    }
    else {
       // write the file
-      subscribeEmail(email, function(err){
+      subscribeEmail(email, req.body.refer, function(err){
          if (!err) {
             res.send(JSON.stringify({"status": "success"}));
          }
@@ -72,14 +72,20 @@ function validEmail(email) {
    return /[A-Za-z0-9]+@[A-Za-z0-9]+\.[a-zA-Z0-9]+/.test(email);
 }
 
-function subscribeEmail(email, callback) {
-   fs.appendFile('public/subscribelist', email + '\n', callback)
+function subscribeEmail(email,refer, callback) {
+   fs.appendFile('public/subscribelist', email + '\t' + refer + '\n', callback)
 }
 
 function isSubscribed(email) {
    var emails = fs.readFileSync('public/subscribelist');
    var emails = emails.toString().split("\n");
-   return emails.indexOf(email) > -1;
+   var isSubscribed = false;
+   emails.forEach(function(v,k) {
+      if (v.indexOf(email) > -1) {
+         isSubscribed = true;
+      }
+   })
+   return isSubscribed;
 }
 
 http.createServer(app).listen(app.get('port'), function(){

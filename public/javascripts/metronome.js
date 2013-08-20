@@ -153,6 +153,12 @@ $(document).ready(function() {
             }
         }
 
+        var queryParams = {};
+        var queryString = $.each((location.search.split('?')[1] || "").split('&'), function(k,v) {
+           var parts = v.split('=');
+           queryParams[parts[0]] = parts[1];
+        })
+        console.log(queryParams);
         $form.submit(function(event) {
             event.preventDefault();
 
@@ -163,6 +169,7 @@ $(document).ready(function() {
             } else {
                 $.post('/subscribe', {
                     'email': email,
+                    'refer': queryParams.refer || 0000,
                     'ajax': 1
                 }, function(data) {
                     if (data.status == 'success') {
