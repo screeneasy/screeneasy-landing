@@ -1,2 +1,3 @@
-CruitMe Landing Page
+Screen Easy Landing Page
 ====================
+
