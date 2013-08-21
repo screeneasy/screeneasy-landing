@@ -11,6 +11,7 @@ var express = require('express')
   , fs = require('fs');
 
 var app = express();
+var credentials = JSON.parse(fs.readFileSync('credentials.json'));
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -29,7 +30,7 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/readlist',express.basicAuth('team', 'thekingisdead'),function(req,res) {
+app.get('/readlist',express.basicAuth(credentials.user, credentials.password),function(req,res) {
    fs.readFile('public/subscribelist',function(err,data) {
       res.setHeader('Content-Type', 'text/plain');
       res.send(data);
