@@ -37,7 +37,7 @@ app.get('/readlist',express.basicAuth(credentials.user, credentials.password),fu
       res.end()
    })
 })
-app.get('/users', user.list);
+
 app.post('/subscribe', function(req,res) {
    var email = req.body.email;
    var response = {};
