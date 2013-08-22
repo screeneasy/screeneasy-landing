@@ -5,7 +5,6 @@
 
 var express = require('express')
   , routes = require('./routes')
-  , user = require('./routes/user')
   , http = require('http')
   , path = require('path')
   , fs = require('fs');
@@ -70,7 +69,7 @@ app.post('/subscribe', function(req,res) {
 })
 
 function validEmail(email) {
-   return /[A-Za-z0-9]+@[A-Za-z0-9]+\.[a-zA-Z0-9]+/.test(email);
+   return /.+@.+\..+/.test(email);
 }
 
 function subscribeEmail(email,refer, callback) {
