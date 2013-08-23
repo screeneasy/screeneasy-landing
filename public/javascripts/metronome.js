@@ -174,6 +174,7 @@ $(document).ready(function() {
                 }, function(data) {
                     if (data.status == 'success') {
                         changeFormState('success', messages['success']);
+                        $("#survey-form").show();
                     } else {
                         switch(data.error) {
                             case 'empty_email':

@@ -68,6 +68,12 @@ app.post('/subscribe', function(req,res) {
    }
 })
 
+app.post('/survey', function(req, res) {
+   // TODO: save the answers
+   var email = req.body.email;
+
+})
+
 function validEmail(email) {
    return /.+@.+\..+/.test(email);
 }
