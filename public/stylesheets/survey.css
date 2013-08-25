@@ -1,0 +1,22 @@
+.survey-desc {
+    font-size: 120%;
+    font-weight: bold;
+    padding: 1%;
+}
+
+#survey-form, .engineer-questions, .recruiter-questions {
+    display: none;
+}
+
+.question {
+    padding: 1%;
+}
+
+.answer-text {
+    width: 75%;
+    height: 100px;
+}
+
+#survey-submit {
+    margin-top: 5%;
+}

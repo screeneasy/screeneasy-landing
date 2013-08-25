@@ -15,6 +15,8 @@
 
         <!-- Template stylesheet -->
         <link href="./stylesheets/metronome.css" rel="stylesheet">
+
+        <link href="./stylesheets/survey.css" rel="stylesheet">
     </head>
 
     <body>
@@ -34,6 +36,66 @@
                 <input type="email" class="subscription-email" id="subscription-email" name="email" placeholder="Enter email to sign up for updates"><button class="subscription-submit" id="subscription-submit">Subscribe</button>
             </form>
             <!-- /Subscription form -->
+
+            <!-- Survey form -->
+            <form class="subscription-form section red" id="survey-form">
+                <div class="survey-desc">
+                    Please answer our survey questions!
+                </div>
+                <div class="question" id="first-question" >1. Are you a recruiter or engineer?<br>
+                    <label for="recruiter-radio">
+                        <input type="radio" name="type" id="recruiter-radio" value="recruiter" />
+                        Recruiter
+                    </label>
+                    <label for="engineer-radio">
+                        <input type="radio" name="type" id="engineer-radio" value="engineer" />
+                        Engineer
+                    </label>
+                </div>
+
+                <div class="recruiter-questions">
+                    <div class="question">2. How many phone interviews do you perform per candidate?<br>
+                        (0/1/2/3+)
+                        <select id="recruiter-q2-answer">
+                            <option></option>
+                            <option>0</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3+</option>
+                        </select>
+                    </div>
+                    <div class="question">3. How do you currently perform technical phone/video interviews?<br>
+                        <textarea class="answer-text" id="recruiter-q3-answer"></textarea>
+                    </div>
+                    <div class="question">4. What frustrations do you have with with existing services you use?<br>
+                        <textarea class="answer-text" id="recruiter-q4-answer"></textarea>
+                    </div>
+                </div>
+
+                <div class="engineer-questions">
+                    <div class="question">2. Do you look at code that a candidate has previously written (GitHub, BitBucket, etc)?<br>
+                        (yes/no)
+                        <select id="engineer-q2-answer">
+                            <option></option>
+                            <option>Yes</option>
+                            <option>No</option>
+                        </select>
+                    </div>
+                    <div class="question">3. Do you prefer to ask technical or general questions during a phone screen?<br>
+                        (technical/general)
+                        <select id="engineer-q3-answer">
+                            <option></option>
+                            <option>Technical</option>
+                            <option>General</option>
+                        </select>
+                    </div>
+                    <div class="question">4. What are some of the pain points of your current interview process?<br>
+                        <textarea class="answer-text" id="engineer-q4-answer"></textarea>
+                    </div>
+                </div>
+                <button class="subscription-submit" id="survey-submit">Submit</button>
+            </form>
+            <!-- /Survey form -->
 
             <!-- Countdown -->
             <div id="countdown" class="countdown section">
@@ -85,6 +147,7 @@
         <script src="./javascripts/jquery.countdown.js"></script>
         <script src="./javascripts/placeholders.min.js"></script>
         <script src="./javascripts/metronome.js"></script>
+        <script src="./javascripts/survey.js"></script>
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
