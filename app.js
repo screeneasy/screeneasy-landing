@@ -1,16 +1,15 @@
-
 /**
  * Module dependencies.
  */
-
-var express = require('express')
-  , routes = require('./routes')
-  , http = require('http')
-  , path = require('path')
-  , fs = require('fs');
+var express = require('express');
+var routes = require('./routes');
+var http = require('http');
+var path = require('path');
+var fs = require('fs');
 var aws = require('aws-sdk');
-
 var app = express();
+aws.config.loadFromPath('./.tmp/config.json');
+var s3 = new aws.S3();
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -35,18 +34,18 @@ app.post('/subscribe', function(req,res) {
    var response = {};
    if (email === "") {
       response = {"status": "error", "error": "empty_email"};
-      res.send(JSON.stringify(response))
-      res.end()
+      res.send(JSON.stringify(response));
+      res.end();
    }
    else if(!validEmail(email)) {
       response = {"status": "error", "error": "invalid_email"};
-      res.send(JSON.stringify(response))
-      res.end()
+      res.send(JSON.stringify(response));
+      res.end();
    }
    else if(isSubscribed(email)) {
       response = {"status": "error", "error": "already_subscribed"};
-      res.send(JSON.stringify(response))
-      res.end()
+      res.send(JSON.stringify(response));
+      res.end();
    }
    else {
       // write the file
@@ -59,7 +58,7 @@ app.post('/subscribe', function(req,res) {
          }
       });
    }
-})
+});
 
 app.post('/survey', function(req, res) {
    var email = req.body.email;
@@ -76,53 +75,59 @@ app.post('/survey', function(req, res) {
          res.send(JSON.stringify({"error": "survey_unwritable", "status": "error"}));
       }
    });
-})
+});
 
 function saveSurvey(email, type, ans2, ans3, ans4, callback) {
-   fs.appendFile('public/surveylist', 'Email: ' + email +
-                                      '\t1.' + type +
-                                      '\t2.' + ans2 +
-                                      '\t3.' + ans3 +
-                                      '\t4.' + ans4 +
-                                      '\n', callback)
+   var content = 'Email: ' + email + '\t1.' + type +
+                                     '\t2.' + ans2 +
+                                     '\t3.' + ans3 +
+                                     '\t4.' + ans4 +
+                                     '\n';
+   writeToS3('surveylist', content);
+}
+
+function writeToS3(key, data) {
+    s3.createBucket({Bucket: 'screeneasy'}, function() {
+      var params = {Bucket: 'screeneasy', Key: key, Body: data};
+      s3.putObject(params, function(err, data) {
+        if (err)
+          console.log(err);
+        else
+          console.log("Successfully uploaded data to screeneasy/subscribelist");
+      });
+    });
 }
 
 function validEmail(email) {
-   return /.+@.+\..+/.test(email);
+   return (/.+@.+\..+/.test(email));
 }
 
 function subscribeEmail(email,refer, callback) {
-   var dst_file = 'public/subscribelist';
-   fs.appendFile(dst_file, email + '\t' + refer + '\n', callback)
-
-   fs.readFile(dst_file, 'utf8', function (err,data) {
-       aws.config.loadFromPath('./config.json');
-       var s3 = new aws.S3();
-
-       s3.createBucket({Bucket: 'screeneasy'}, function() {
-         var params = {Bucket: 'screeneasy', Key: 'subscribelist', Body: data};
-         s3.putObject(params, function(err, data) {
-           if (err)
-             console.log(err)
-           else
-             console.log("Successfully uploaded data to screeneasy/subscribelist");
-         });
-       });
-   });
+    writeToS3('subscribelist', email + '-' + refer);
 }
 
 function isSubscribed(email) {
-   var emails = fs.readFileSync('public/subscribelist');
-   var emails = emails.toString().split("\n");
-   var isSubscribed = false;
-   emails.forEach(function(v,k) {
-      if (v.indexOf(email) > -1) {
-         isSubscribed = true;
-      }
-   })
-   return isSubscribed;
+   s3.getObject({Bucket: 'screeneasy', Key: 'subscribelist'}, function(err, data) {
+       if( err ) {
+          return false;
+       }
+
+       var email_list = data.Body.toString();
+       var emails = email_list.split("\n");
+       var isUserSubscribed = false;
+       emails.forEach(function(v,k) {
+          if (v.indexOf(email) > -1) {
+             isUserSubscribed = true;
+          }
+       });
+
+       return isUserSubscribed;
+   });
+
+   // Fail to read from s3, let's assume email is not subscribed
+   return false;
 }
 
 http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+  console.log('Express server listening on port %d', app.get('port'));
 });
