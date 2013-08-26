@@ -83,8 +83,6 @@ function saveSurvey(email, type, ans2, ans3, ans4, callback) {
                                      '\t3.' + ans3 +
                                      '\t4.' + ans4 +
                                      '\n';
-   fs.appendFile('public/surveylist', content, callback);
-
    writeToS3('surveylist', content);
 }
 
@@ -105,26 +103,34 @@ function validEmail(email) {
 }
 
 function subscribeEmail(email,refer, callback) {
-   var dst_file = 'public/subscribelist';
-   fs.appendFile(dst_file, email + '\t' + refer + '\n', callback);
-
-   fs.readFile(dst_file, 'utf8', function (err,data) {
-       writeToS3('subscribelist', data);
-   });
+    writeToS3('subscribelist', email + '-' + refer);
 }
 
 function isSubscribed(email) {
-   var email_list = fs.readFileSync('public/subscribelist');
-   var emails = email_list.toString().split("\n");
-   var isUserSubscribed = false;
-   emails.forEach(function(v,k) {
-      if (v.indexOf(email) > -1) {
-         isUserSubscribed = true;
-      }
+   s3.getObject({Bucket: 'screeneasy', Key: 'subscribelist'}, function(err, data) {
+       if( err ) {
+          return false;
+       }
+
+       var email_list = data.Body.toString();
+       var emails = email_list.split("\n");
+       var isUserSubscribed = false;
+       emails.forEach(function(v,k) {
+           console.log(email);
+           console.log(v.indexOf(email));
+          if (v.indexOf(email) > -1) {
+             isUserSubscribed = true;
+          }
+       });
+
+       console.log(isUserSubscribed);
+       return isUserSubscribed;
    });
-   return isUserSubscribed;
+
+   // Fail to read from s3, let's assume email is not subscribed
+   return false;
 }
 
 http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+  console.log('Express server listening on port %d', app.get('port'));
 });
