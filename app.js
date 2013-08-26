@@ -11,7 +11,6 @@ var express = require('express')
 var aws = require('aws-sdk');
 
 var app = express();
-var credentials = JSON.parse(fs.readFileSync('credentials.json'));
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -30,13 +29,6 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/readlist',express.basicAuth(credentials.user, credentials.password),function(req,res) {
-   fs.readFile('public/subscribelist',function(err,data) {
-      res.setHeader('Content-Type', 'text/plain');
-      res.send(data);
-      res.end()
-   })
-})
 
 app.post('/subscribe', function(req,res) {
    var email = req.body.email;
