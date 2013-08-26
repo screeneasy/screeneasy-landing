@@ -1,5 +1,4 @@
 node_modules
 *.swp
 
-credentials.json
-public/subscribelist
+.tmp/config.json
