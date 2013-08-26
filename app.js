@@ -8,6 +8,7 @@ var express = require('express')
   , http = require('http')
   , path = require('path')
   , fs = require('fs');
+var aws = require('aws-sdk');
 
 var app = express();
 var credentials = JSON.parse(fs.readFileSync('credentials.json'));
@@ -99,7 +100,23 @@ function validEmail(email) {
 }
 
 function subscribeEmail(email,refer, callback) {
-   fs.appendFile('public/subscribelist', email + '\t' + refer + '\n', callback)
+   var dst_file = 'public/subscribelist';
+   fs.appendFile(dst_file, email + '\t' + refer + '\n', callback)
+
+   fs.readFile(dst_file, 'utf8', function (err,data) {
+       aws.config.loadFromPath('./config.json');
+       var s3 = new aws.S3();
+
+       s3.createBucket({Bucket: 'screeneasy'}, function() {
+         var params = {Bucket: 'screeneasy', Key: 'subscribelist', Body: data};
+         s3.putObject(params, function(err, data) {
+           if (err)
+             console.log(err)
+           else
+             console.log("Successfully uploaded data to screeneasy/subscribelist");
+         });
+       });
+   });
 }
 
 function isSubscribed(email) {
