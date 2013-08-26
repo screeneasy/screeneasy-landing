@@ -116,14 +116,11 @@ function isSubscribed(email) {
        var emails = email_list.split("\n");
        var isUserSubscribed = false;
        emails.forEach(function(v,k) {
-           console.log(email);
-           console.log(v.indexOf(email));
           if (v.indexOf(email) > -1) {
              isUserSubscribed = true;
           }
        });
 
-       console.log(isUserSubscribed);
        return isUserSubscribed;
    });
 
