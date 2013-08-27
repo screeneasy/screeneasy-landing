@@ -20,3 +20,20 @@
 #survey-submit {
     margin-top: 5%;
 }
+
+label.active {
+   background: #00b159;
+}
+
+.noDisplay {
+   display: none;
+}
+
+label {
+   padding: 5px;
+   background: #555;
+   text-align: center;
+   display: block;
+   width: 150px;
+   margin: 0 auto 10px auto;
+}
