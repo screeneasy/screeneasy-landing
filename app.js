@@ -97,17 +97,7 @@ function saveSurvey(email, type, ans2, ans3, ans4, callback) {
 function writeToS3(key, data,callback) {
     s3.createBucket({Bucket: bucket}, function() {
       var params = {Bucket: bucket, Key: key, Body: data};
-      s3.putObject(params, function(err, data) {
-        if (err) {
-          console.log(err);
-          callback(err);
-        }
-        else {
-          console.log("Successfully uploaded data to screeneasy/subscribelist");
-          callback();
-        }
-      });
-    });
+      s3.putObject(params, callback);
 }
 
 function validEmail(email) {
