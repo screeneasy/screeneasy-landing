@@ -98,6 +98,7 @@ function writeToS3(key, data,callback) {
     s3.createBucket({Bucket: bucket}, function() {
       var params = {Bucket: bucket, Key: key, Body: data};
       s3.putObject(params, callback);
+    });
 }
 
 function validEmail(email) {
