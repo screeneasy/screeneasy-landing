@@ -33,6 +33,10 @@ $(document).ready(function() {
             }, function(data) {
                 if (data.status == 'success') {
                     changeSurveyFormState('success', "Thank you for submitting your survey!");
+                    $('form#survey-form').slideUp();
+                    $('form#survey-form label').removeClass('active');
+                    $('form#survey-form')[0].reset();
+                    $(document).scrollTop(0);
                 } else {
                     changeSurveyFormState('error', "There was an error submitting your survey.");
                 }
