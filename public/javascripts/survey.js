@@ -9,14 +9,14 @@ $(document).ready(function() {
         var type, answer2, answer3, answer4;
         if ($("#recruiter-radio").is(":checked")) {
             type = "recruiter";
-            answer2 = $("#recruiter-q2-answer option:selected").text();
-            answer3 = $("#recruiter-q3-answer").val();
-            answer4 = $("#recruiter-q4-answer").val();
+            answer2 = $("[name=recruiter-q2-answer]").val();
+            answer3 = $("[name=recruiter-q3-answer]").val();
+            answer4 = $("[name=recruiter-q4-answer]").val();
         } else {
             type="engineer";
-            answer2 = $("#engineer-q2-answer option:selected").text();
-            answer3 = $("#engineer-q3-answer option:selected").text();
-            answer4 = $("#engineer-q4-answer").val();
+            answer2 = $("[name=engineer-q2-answer]").val();
+            answer3 = $("[name=engineer-q3-answer]").val();
+            answer4 = $("[name=engineer-q4-answer]").val();
         }
 
         // Do form validation for answers
