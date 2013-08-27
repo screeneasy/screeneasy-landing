@@ -111,7 +111,6 @@ function subscribeEmail(email,refer, callback) {
 
 function isSubscribed(email,callback) {
    s3.headObject({Bucket: bucket, Key: util.format('emails/%s', email)}, function(err,data) {
-      console.log(err,data);
       callback(err === null);   
    });
 }
