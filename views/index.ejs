@@ -42,55 +42,58 @@
                 <div class="survey-desc">
                     Please answer our survey questions!
                 </div>
-                <div class="question" id="first-question" >1. Are you a recruiter or engineer?<br>
+                <div class="question" id="first-question" >
+                    <p>1. Are you a recruiter or engineer?</p>
+                    <input class="noDisplay" type="radio" name="type" id="recruiter-radio" value="recruiter" />
                     <label for="recruiter-radio">
-                        <input type="radio" name="type" id="recruiter-radio" value="recruiter" />
                         Recruiter
                     </label>
+                    <input class="noDisplay" type="radio" name="type" id="engineer-radio" value="engineer" />
                     <label for="engineer-radio">
-                        <input type="radio" name="type" id="engineer-radio" value="engineer" />
                         Engineer
                     </label>
                 </div>
 
                 <div class="recruiter-questions">
-                    <div class="question">2. How many phone interviews do you perform per candidate?<br>
-                        (0/1/2/3+)
-                        <select id="recruiter-q2-answer">
-                            <option></option>
-                            <option>0</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3+</option>
-                        </select>
+                    <div class="question">
+                        <p>2. How many phone interviews do you perform per candidate?</p>
+                        <input type="radio" class="noDisplay" name="recruiter-q2-answer" id="recruiter-q2-answer1" value="0" />
+                        <input type="radio" class="noDisplay" name="recruiter-q2-answer" id="recruiter-q2-answer2" value="1" />
+                        <input type="radio" class="noDisplay" name="recruiter-q2-answer" id="recruiter-q2-answer3" value="2" />
+                        <input type="radio" class="noDisplay" name="recruiter-q2-answer" id="recruiter-q2-answer4" value="3+" />
+                        <label for="recruiter-q2-answer1">0</label> 
+                        <label for="recruiter-q2-answer2">1</label>
+                        <label for="recruiter-q2-answer3">2</label>
+                        <label for="recruiter-q2-answer4">3+</label>
                     </div>
-                    <div class="question">3. How do you currently perform technical phone/video interviews?<br>
-                        <textarea class="answer-text" id="recruiter-q3-answer"></textarea>
+                    <div class="question">
+                        <p>3. How do you currently perform technical phone/video interviews?</p>
+                        <textarea class="answer-text" name="recruiter-q3-answer"></textarea>
                     </div>
-                    <div class="question">4. What frustrations do you have with with existing services you use?<br>
-                        <textarea class="answer-text" id="recruiter-q4-answer"></textarea>
+                    <div class="question">
+                        <p>4. What frustrations do you have with with existing services you use?</p>
+                        <textarea class="answer-text" name="recruiter-q4-answer"></textarea>
                     </div>
                 </div>
 
                 <div class="engineer-questions">
-                    <div class="question">2. Do you look at code that a candidate has previously written (GitHub, BitBucket, etc)?<br>
-                        (yes/no)
-                        <select id="engineer-q2-answer">
-                            <option></option>
-                            <option>Yes</option>
-                            <option>No</option>
-                        </select>
+                    <div class="question">
+                        <p>2. Do you look at code that a candidate has previously written (GitHub, BitBucket, etc)?</p>
+                        <input type="radio" class="noDisplay" name="engineer-q2-answer" id="engineer-q2-answer1" value="yes" />
+                        <input type="radio" class="noDisplay" name="engineer-q2-answer" id="engineer-q2-answer2" value="no" />
+                        <label for="engineer-q2-answer1">Yes</label> 
+                        <label for="engineer-q2-answer2">No</label> 
                     </div>
-                    <div class="question">3. Do you prefer to ask technical or general questions during a phone screen?<br>
-                        (technical/general)
-                        <select id="engineer-q3-answer">
-                            <option></option>
-                            <option>Technical</option>
-                            <option>General</option>
-                        </select>
+                    <div class="question">
+                        <p>3. Do you prefer to ask technical or general questions during a phone screen?</p>
+                        <input type="radio" class="noDisplay" name="engineer-q3-answer" id="engineer-q3-answer1" value="technical" />
+                        <input type="radio" class="noDisplay" name="engineer-q3-answer" id="engineer-q3-answer2" value="general" />
+                        <label for="engineer-q3-answer1">Technical</label> 
+                        <label for="engineer-q3-answer2">General</label> 
                     </div>
-                    <div class="question">4. What are some of the pain points of your current interview process?<br>
-                        <textarea class="answer-text" id="engineer-q4-answer"></textarea>
+                    <div class="question">
+                        <p>4. What are some of the pain points of your current interview process?</p>
+                        <textarea class="answer-text" name="engineer-q4-answer"></textarea>
                     </div>
                 </div>
                 <button class="subscription-submit" id="survey-submit">Submit</button>
@@ -156,6 +159,11 @@
 
           ga('create', 'UA-43356448-1', 'screeneasy.me');
           ga('send', 'pageview');
+
+          $('label').click(function() {
+             $(this).parent().find('label').removeClass('active');
+             $(this).addClass('active');
+          });
         </script>
     </body>
 </html>

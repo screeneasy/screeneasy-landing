@@ -83,17 +83,22 @@ function saveSurvey(email, type, ans2, ans3, ans4, callback) {
                                      '\t3.' + ans3 +
                                      '\t4.' + ans4 +
                                      '\n';
-   writeToS3('surveylist', content);
+   console.log(callback);
+   writeToS3('surveylist', content,callback);
 }
 
-function writeToS3(key, data) {
-    s3.createBucket({Bucket: 'screeneasy'}, function() {
-      var params = {Bucket: 'screeneasy', Key: key, Body: data};
+function writeToS3(key, data,callback) {
+    s3.createBucket({Bucket: 'screeneasy2013'}, function() {
+      var params = {Bucket: 'screeneasy2013', Key: key, Body: data};
       s3.putObject(params, function(err, data) {
-        if (err)
+        if (err) {
           console.log(err);
-        else
+          callback(err);
+        }
+        else {
           console.log("Successfully uploaded data to screeneasy/subscribelist");
+          callback();
+        }
       });
     });
 }
@@ -103,7 +108,7 @@ function validEmail(email) {
 }
 
 function subscribeEmail(email,refer, callback) {
-    writeToS3('subscribelist', email + '-' + refer);
+    writeToS3('subscribelist', email + '-' + refer,callback);
 }
 
 function isSubscribed(email) {
